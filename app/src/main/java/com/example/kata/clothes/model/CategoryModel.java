@@ -1,7 +1,10 @@
 package com.example.kata.clothes.model;
 
+import com.orm.dsl.Table;
+
 import java.util.List;
 
+@Table
 public class CategoryModel{
 
     private long id;

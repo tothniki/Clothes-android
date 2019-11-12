@@ -1,6 +1,8 @@
 package com.example.kata.clothes.model;
 
+import com.orm.dsl.Table;
 
+@Table
 public class ClothesModel{
     private long id;
     private CategoryModel category;
