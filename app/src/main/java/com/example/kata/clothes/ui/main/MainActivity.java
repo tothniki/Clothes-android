@@ -11,8 +11,14 @@ import android.widget.TextView;
 import com.example.kata.clothes.R;
 import com.example.kata.clothes.ui.create.CreateFragment;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
+import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity {
+import dagger.Module;
+
+
+public class MainActivity extends AppCompatActivity implements MainScreen {
+    @Inject
+    MainPresenter mainPresenter;
 
 
     @Override

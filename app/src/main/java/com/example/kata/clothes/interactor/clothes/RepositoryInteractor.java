@@ -1,4 +1,4 @@
-//package com.example.kata.clothes.interactor.clothes;
+package com.example.kata.clothes.interactor.clothes;
 //
 //import com.example.kata.clothes.ClothesApplication;
 //import com.example.kata.clothes.database.RepositoryModule;
@@ -10,7 +10,7 @@
 //import javax.inject.Inject;
 //
 //
-//public class RepositoryInteractor {
+public class RepositoryInteractor {
 //    RepositoryModule repository;
 //
 //    public RepositoryInteractor() {
@@ -117,4 +117,4 @@
 //        return repository.isInDB(favourite);
 //    };
 //
-//}
+}
