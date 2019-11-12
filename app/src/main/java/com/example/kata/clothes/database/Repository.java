@@ -6,8 +6,8 @@ import android.content.Context;
 
 import java.util.List;
 
-import dagger.Module;
-import dagger.Provides;
+//import dagger.Module;
+//import dagger.Provides;
 
 public interface Repository {
 
