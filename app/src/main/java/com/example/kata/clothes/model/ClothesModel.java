@@ -3,9 +3,16 @@ package com.example.kata.clothes.model;
 
 public class ClothesModel{
     private long id;
-    private String category;
-    private String label;
-    private String picture;
+    private CategoryModel category;
+    private FavouritesModel label;
+    private byte[] picture;
+
+    public ClothesModel(long id, CategoryModel category, FavouritesModel label, byte[] picture ) {
+        this.id = id;
+        this.category = category;
+        this.label = label;
+        this.picture = picture;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -15,29 +22,32 @@ public class ClothesModel{
         return id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCategory() {
+    public CategoryModel getCategory() {
         return category;
     }
 
-    public void setLabel(String name) {
-        this.label = label;
+    public void setCategory(CategoryModel category) {
+        this.category = category;
     }
 
-    public String getLabel() {
+    public FavouritesModel getLabel() {
         return label;
     }
 
-    public String getPicture() {
+    public void setLabel(FavouritesModel label) {
+        this.label = label;
+    }
+
+    public byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
+
+
+
 }
 
 

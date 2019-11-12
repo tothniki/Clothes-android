@@ -1,32 +1,42 @@
 package com.example.kata.clothes.model;
 
+import java.util.List;
+
 public class CategoryModel{
+
     private long id;
-    private String label;
-    private String list;
+    private String name;
+    private List<ClothesModel> clothes;
+
+
+    public long getId() {
+        return id;
+    }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setLabel(String name) {
-        this.label = label;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLabel() {
-        return label;
+    public List<ClothesModel> getClothes() {
+        return clothes;
     }
 
-    public void setList(String list) {
-        this.list = list;
+    public void setClothes(List<ClothesModel> clothes) {
+        this.clothes = clothes;
     }
 
-    public String getList() {
-        return list;
+    public CategoryModel(long id, String name, List<ClothesModel> clothes) {
+        this.id = id;
+        this.name = name;
+        this.clothes = clothes;
     }
 
 }
