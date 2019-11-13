@@ -19,8 +19,8 @@ public class ClothesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).build();
-        //injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).repositoryModule(new RepositoryModule(this)).build();
+        //injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).build();
+        injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).repositoryModule(new RepositoryModule(this)).build();
     }
 }
 

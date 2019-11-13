@@ -1,9 +1,11 @@
 package com.example.kata.clothes.model;
 
 import com.orm.dsl.Table;
+import com.orm.dsl.Unique;
 
 @Table
 public class ClothesModel{
+    @Unique
     private long id;
     private CategoryModel category;
     private FavouritesModel label;

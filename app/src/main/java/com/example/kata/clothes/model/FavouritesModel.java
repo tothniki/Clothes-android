@@ -1,11 +1,13 @@
 package com.example.kata.clothes.model;
 
 import com.orm.dsl.Table;
+import com.orm.dsl.Unique;
 
 import java.util.List;
 
 @Table
 public class FavouritesModel{
+    @Unique
     private long id;
     private String name;
     private List<ClothesModel> clothes;

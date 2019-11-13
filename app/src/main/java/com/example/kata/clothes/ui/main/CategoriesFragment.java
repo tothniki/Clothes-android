@@ -17,6 +17,8 @@ import com.example.kata.clothes.ui.main.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 ///**
 // * A fragment representing a list of Items.
 // * <p/>
@@ -24,7 +26,9 @@ import java.util.List;
 // * interface.
 // */
 public class CategoriesFragment extends Fragment {
-//
+    @Inject
+    CategoriesPresenter categoriesPresenter;
+
 ////    // TODO: Customize parameter argument names
 ////    private static final String ARG_COLUMN_COUNT = "column-count";
 ////    // TODO: Customize parameters
