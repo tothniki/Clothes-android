@@ -10,11 +10,11 @@ public class FavouritesModel{
     private String name;
     private List<ClothesModel> clothes;
 
-    public FavouritesModel(long id, String name, List<ClothesModel> clothes) {
-        this.id = id;
-        this.name = name;
-        this.clothes = clothes;
-    }
+//    public FavouritesModel(long id, String name, List<ClothesModel> clothes) {
+//        this.id = id;
+//        this.name = name;
+//        this.clothes = clothes;
+//    }
 
 
     public long getId() {

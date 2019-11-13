@@ -21,7 +21,7 @@ public interface Repository {
 
     ClothesModel getClothById(long id);
 
-    void saveClothes(ClothesModel cloth);
+    void saveCloth(ClothesModel cloth);
 
     void saveAllClothes (List<ClothesModel> clothes);
 

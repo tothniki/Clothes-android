@@ -36,10 +36,10 @@ public class CategoryModel{
         this.clothes = clothes;
     }
 
-    public CategoryModel(long id, String name, List<ClothesModel> clothes) {
-        this.id = id;
-        this.name = name;
-        this.clothes = clothes;
-    }
+//    public CategoryModel(long id, String name, List<ClothesModel> clothes) {
+//        this.id = id;
+//        this.name = name;
+//        this.clothes = clothes;
+//    }
 
 }

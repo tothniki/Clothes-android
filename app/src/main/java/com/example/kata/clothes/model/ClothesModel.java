@@ -9,12 +9,12 @@ public class ClothesModel{
     private FavouritesModel label;
     private byte[] picture;
 
-    public ClothesModel(long id, CategoryModel category, FavouritesModel label, byte[] picture ) {
-        this.id = id;
-        this.category = category;
-        this.label = label;
-        this.picture = picture;
-    }
+//    public ClothesModel(long id, CategoryModel category, FavouritesModel label, byte[] picture ) {
+////        this.id = id;
+////        this.category = category;
+////        this.label = label;
+////        this.picture = picture;
+////    }
 
     public void setId(long id) {
         this.id = id;

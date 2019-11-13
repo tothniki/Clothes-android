@@ -33,7 +33,7 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public ClothesModel getClotheslById(final long id) {
+    public ClothesModel getClothById(final long id) {
         ClothesModel v = SugarRecord.findById(ClothesModel.class, id);
         if(v !=null){
             return v;
@@ -42,13 +42,13 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public void saveClothes(ClothesModel cloth) {
+    public void saveCloth(ClothesModel cloth) {
         SugarRecord.saveInTx(cloth);
     }
 
     @Override
-    public void saveAllClothes(List<ClothesModel> cloth) {
-        SugarRecord.saveInTx(cloth);
+    public void saveAllClothes(List<ClothesModel> clothes) {
+        SugarRecord.saveInTx(clothes);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public void removeClothes(ClothesModel cloth) {
+    public void removeCloth(ClothesModel cloth) {
         SugarRecord.deleteInTx(cloth);
     }
 
@@ -76,7 +76,7 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public boolean isInDB(ClothesModel cloth) {
+    public boolean isInDBCloth(ClothesModel cloth) {
         return SugarRecord.findById(ClothesModel.class, cloth.getId()) != null;
     }
 
@@ -84,15 +84,15 @@ public class SugarOrmRepository implements Repository {
     //Categories
     @Override
     public List<CategoryModel> getAllCategories() {
-        List<CategoryModel> v = SugarRecord.listAll(CategoryModel.class);
-        return v;
+        List<CategoryModel> allc = SugarRecord.listAll(CategoryModel.class);
+        return allc;
     }
 
     @Override
-    public CategoryModel getCategorylById(final long id) {
-        CategoryModel v = SugarRecord.findById(CategoryModel.class, id);
-        if(v !=null){
-            return v;
+    public CategoryModel getCategoryById(final long id) {
+        CategoryModel m = SugarRecord.findById(CategoryModel.class, id);
+        if(m !=null){
+            return m;
         }
         return new CategoryModel();
     }
@@ -132,22 +132,22 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public boolean isInDB(CategoryModel category) {
+    public boolean isInDBCat(CategoryModel category) {
         return SugarRecord.findById(CategoryModel.class, category.getId()) != null;
     }
 
     //Favourites
     @Override
     public List<FavouritesModel> getAllFavourites() {
-        List<FavouritesModel> v = SugarRecord.listAll(FavouritesModel.class);
-        return v;
+        List<FavouritesModel> f = SugarRecord.listAll(FavouritesModel.class);
+        return f;
     }
 
     @Override
     public FavouritesModel getFavouriteById(final long id) {
-        FavouritesModel v = SugarRecord.findById(FavouritesModel.class, id);
-        if(v !=null){
-            return v;
+        FavouritesModel fm = SugarRecord.findById(FavouritesModel.class, id);
+        if(fm !=null){
+            return fm;
         }
         return new FavouritesModel();
     }
@@ -187,7 +187,7 @@ public class SugarOrmRepository implements Repository {
     }
 
     @Override
-    public boolean isInDB(FavouritesModel favourite) {
+    public boolean isInDBFav(FavouritesModel favourite) {
         return SugarRecord.findById(FavouritesModel.class, favourite.getId()) != null;
     }
 
