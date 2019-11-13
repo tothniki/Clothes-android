@@ -48,7 +48,7 @@ public interface Repository {
 
     void removeAllCategories();
 
-    boolean isInDBCat(ClothesModel cloth);
+    boolean isInDBCat(CategoryModel category);
 
     // Favourites
     List<FavouritesModel> getAllFavourites();
@@ -59,7 +59,7 @@ public interface Repository {
 
     void saveAllFavourites (List<FavouritesModel> favourites);
 
-    void updateFavourites(List<FavouritesModel> favourites);
+    void updateFavourites(List<FavouritesModel> newFavourites);
 
     void removeFavourite(FavouritesModel favourite);
 
