@@ -1,9 +1,11 @@
 package com.example.kata.clothes;
 import com.example.kata.clothes.database.RepositoryModule;
+import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
 import com.example.kata.clothes.interactor.InteractorModule;
 import com.example.kata.clothes.interactor.clothes.ClothesInteractor;
 import com.example.kata.clothes.ui.UIModule;
 import com.example.kata.clothes.ui.main.MainActivity;
+import com.example.kata.clothes.ui.main.MainPresenter;
 import com.example.kata.clothes.ui.main.MainScreen;
 
 import javax.inject.Singleton;
@@ -16,9 +18,10 @@ import dagger.Component;
 public interface ClothesApplicationComponent {
 
         void inject(MainActivity mainActivity);
-        void inject(MainScreen mainScreen);
+        void inject(MainPresenter mainPresenter);
         void inject(ClothesInteractor clothesInteractor);
         void inject(ClothesApplication clothessApplication);
+        void inject(RepositoryInteractor repositoryInteractor);
 
 
 }

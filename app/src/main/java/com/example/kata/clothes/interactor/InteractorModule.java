@@ -11,7 +11,7 @@ import dagger.Provides;
 @Module
 public class InteractorModule {
     @Provides
-    public ClothesInteractor provideRecepiesInteractor() {
+    public ClothesInteractor provideClothesInteractor() {
         return new ClothesInteractor();
     }
 

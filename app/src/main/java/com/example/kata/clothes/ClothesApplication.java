@@ -10,14 +10,10 @@ import javax.inject.Inject;
 public class ClothesApplication extends Application {
     public static ClothesApplicationComponent injector;
 
-//    @Inject
-//    Repository repository;
-//
 //
 //    public void setInjector(ClothesApplicationComponent appComponent) {
 //        injector = appComponent;
 //        injector.inject(this);
-//        repository.open(getApplicationContext());
 //    }
 
     @Override
