@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
 
+        mainPresenter.initDataset();  // init the dataset with two categories in it
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriesFragment()).commit();
     }
 

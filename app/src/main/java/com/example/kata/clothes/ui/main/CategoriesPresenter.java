@@ -33,39 +33,7 @@ public class CategoriesPresenter extends Presenter<CategoriesScreen> {
         super.detachScreen();
     }
 
-    private void createCategories(){
 
-        List<CategoryModel> newList = new ArrayList<CategoryModel>();
-
-        // create one cloth list containing two clothes
-        ClothesModel cloth = new ClothesModel();
-        ClothesModel cloth2 = new ClothesModel();
-        List<ClothesModel> clothList = new ArrayList<>();
-        clothList.add(cloth);
-        clothList.add(cloth2);
-
-        CategoryModel newItem = new CategoryModel();
-        newItem.setClothes(clothList);
-        newItem.setName("Shirts");
-
-        // create other clothes list with two clothes
-        ClothesModel cloth3 = new ClothesModel();
-        ClothesModel cloth4 = new ClothesModel();
-        List<ClothesModel> clothList1 = new ArrayList<>();
-        clothList.add(cloth3);
-        clothList.add(cloth4);
-
-        CategoryModel newItem2 = new CategoryModel();
-        newItem2.setClothes(clothList1);
-        newItem2.setName("Jeans");
-
-        newList.add(newItem);
-        newList.add(newItem2);
-
-
-        repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-        repositoryInteractor.saveAllCategories(newList);
-    };
 
     public void loadCategoriesFromRepo(){
         executor.execute(new Runnable(){
