@@ -88,4 +88,10 @@ public class MainPresenter extends Presenter<MainScreen> {
         repositoryInteractor.saveAllClothes(clothesModelList);
         repositoryInteractor.saveAllFavourites(favouritesModelList);
     }
+
+    public CategoryModel getCategory(){
+        List<CategoryModel> categories= new ArrayList<CategoryModel>();
+        categories =  repositoryInteractor.getAllCategories();
+        return categories.get(0);
+    }
 }

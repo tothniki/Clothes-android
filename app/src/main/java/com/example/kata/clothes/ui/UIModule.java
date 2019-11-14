@@ -1,6 +1,7 @@
 package com.example.kata.clothes.ui;
 import android.content.Context;
 
+import com.example.kata.clothes.ui.favourites.FavouritesFragment;
 import com.example.kata.clothes.ui.main.CategoriesPresenter;
 import com.example.kata.clothes.ui.main.MainPresenter;
 
@@ -33,7 +34,11 @@ public class UIModule {
 
     @Provides
     @Singleton
-    public CategoriesPresenter categoriesPresenter(){ return new CategoriesPresenter();}
+    public CategoriesPresenter provideCategoriesPresenter(){ return new CategoriesPresenter();}
+
+//    @Provides
+//    @Singleton
+//    public FavouritesPresenter provideFavouritesPresenter(){ return new FavouritesPresenter();}
 
     @Provides
     @Singleton

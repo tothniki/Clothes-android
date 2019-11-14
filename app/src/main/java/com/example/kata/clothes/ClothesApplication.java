@@ -3,6 +3,7 @@ import com.example.kata.clothes.database.RepositoryModule;
 import  com.example.kata.clothes.ui.UIModule;
 import android.app.Application;
 import com.example.kata.clothes.database.Repository;
+import com.orm.SugarContext;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ public class ClothesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        SugarContext.init(this);
         //injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).build();
         injector = DaggerClothesApplicationComponent.builder().uIModule(new UIModule(this)).repositoryModule(new RepositoryModule(this)).build();
     }

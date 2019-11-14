@@ -4,6 +4,7 @@ import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
 import com.example.kata.clothes.interactor.InteractorModule;
 import com.example.kata.clothes.interactor.clothes.ClothesInteractor;
 import com.example.kata.clothes.ui.UIModule;
+import com.example.kata.clothes.ui.favourites.FavouritesFragment;
 import com.example.kata.clothes.ui.main.CategoriesFragment;
 import com.example.kata.clothes.ui.main.CategoriesPresenter;
 import com.example.kata.clothes.ui.main.MainActivity;
@@ -27,6 +28,9 @@ public interface ClothesApplicationComponent {
 
         void inject(CategoriesFragment categoriesFragment);
         void inject(CategoriesPresenter categoriesPresenter);
+
+        //void inject(FavouritesFragment favouritesFragment);
+        //void inject(FavouritesPresenter favouritesPresenter);
 
 
 }
