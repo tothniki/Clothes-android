@@ -1,25 +1,34 @@
 package com.example.kata.clothes.model;
 
+import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 import com.orm.dsl.Unique;
 
 @Table
-public class ClothesModel{
-    @Unique
-    private long id;
+public class ClothesModel extends SugarRecord{
+    private Long id;
+    private String name;
     private CategoryModel category;
     private FavouritesModel label;
     private byte[] picture;
 
-//    public ClothesModel(long id, CategoryModel category, FavouritesModel label, byte[] picture ) {
-////        this.id = id;
-////        this.category = category;
-////        this.label = label;
-////        this.picture = picture;
-////    }
+    public ClothesModel() {
 
-    public void setId(long id) {
-        this.id = id;
+    }
+
+    public ClothesModel(String name, CategoryModel category, FavouritesModel label, byte[] picture ) {
+        this.name = name;
+        this.category = CategoryModel.find(CategoryModel.class, "name = ?", category.getName()).get(0);
+        this.label = FavouritesModel.find(FavouritesModel.class, "name = ?", label.getName()).get(0);
+        this.picture = picture;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {

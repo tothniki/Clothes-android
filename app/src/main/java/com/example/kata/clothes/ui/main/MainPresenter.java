@@ -34,64 +34,75 @@ public class MainPresenter extends Presenter<MainScreen> {
     }
 
     public void initDataset(){
-
-        List<CategoryModel> newList = new ArrayList<CategoryModel>();
-        List<FavouritesModel> favouritesModelList = new ArrayList<FavouritesModel>();
-        List<ClothesModel> clothesModelList = new ArrayList<ClothesModel>();
-
-        // create one cloth list containing two clothes
-        ClothesModel cloth = new ClothesModel();
-        ClothesModel cloth2 = new ClothesModel();
-        List<ClothesModel> clothList = new ArrayList<>();
-        clothList.add(cloth);
-        clothList.add(cloth2);
-
-        CategoryModel newItem = new CategoryModel();
-        newItem.setClothes(clothList);
-        newItem.setName("Shirts");
-
-        // create other clothes list with two clothes
-        ClothesModel cloth3 = new ClothesModel();
-        ClothesModel cloth4 = new ClothesModel();
-        List<ClothesModel> clothList1 = new ArrayList<>();
-        clothList.add(cloth3);
-        clothList.add(cloth4);
-
-        CategoryModel newItem2 = new CategoryModel();
-        newItem2.setClothes(clothList1);
-        newItem2.setName("Jeans");
-
-        newList.add(newItem);
-        newList.add(newItem2);
-
-        // create favorites elements
-        FavouritesModel fav1 = new FavouritesModel();
-        fav1.setName("business");
-        fav1.setClothes(clothList);
-        FavouritesModel fav2 = new FavouritesModel();
-        fav2.setName("home");
-        fav2.setClothes(clothList1);
-
-        favouritesModelList.add(fav1);
-        favouritesModelList.add(fav2);
-
-        clothesModelList.add(cloth);
-        clothesModelList.add(cloth2);
-        clothesModelList.add(cloth3);
-        clothesModelList.add(cloth4);
-
-
         repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
         repositoryInteractor.removeAllClothes(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-        repositoryInteractor.removeAllFavourites(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-        repositoryInteractor.saveAllCategories(newList);
-        repositoryInteractor.saveAllClothes(clothesModelList);
-        repositoryInteractor.saveAllFavourites(favouritesModelList);
+        repositoryInteractor.removeAllFavourites();
+
+        // create favorites elements
+        FavouritesModel fav1 = new FavouritesModel("business");
+        FavouritesModel fav2 = new FavouritesModel("home");
+        fav1.save();
+        fav2.save();
+//        List<FavouritesModel> favourites = new ArrayList<>();
+//        favourites.add(fav1);
+//        favourites.add(fav2);
+//        repositoryInteractor.saveAllFavourites(favourites);
+
+        CategoryModel cat1 = new CategoryModel("Shirts");
+        CategoryModel cat2 = new CategoryModel("Jeans");
+        cat1.save();
+        cat2.save();
+
+//        List<CategoryModel> categories = new ArrayList<>();
+//        categories.add(cat1);
+//        categories.add(cat2);
+//        repositoryInteractor.saveAllCategories(categories);
+
+
+        // create one cloth list containing two clothes
+        ClothesModel cloth = new ClothesModel("first", cat1, fav1, null);
+        ClothesModel cloth2 = new ClothesModel("second",cat2, fav2, null);
+        ClothesModel cloth3 = new ClothesModel("third",cat2, fav1, null);
+        ClothesModel cloth4 = new ClothesModel("fourth", cat1, fav2, null);
+        cloth.save();
+        cloth2.save();
+        cloth3.save();
+        cloth4.save();
+
+//        List<ClothesModel> clothes = new ArrayList<>();
+//        clothes.add(cloth);
+//        clothes.add(cloth2);
+//        clothes.add(cloth3);
+//        clothes.add(cloth4);
+//        repositoryInteractor.saveAllClothes(clothes);
+
     }
 
     public CategoryModel getCategory(){
         List<CategoryModel> categories= new ArrayList<CategoryModel>();
         categories =  repositoryInteractor.getAllCategories();
-        return categories.get(0);
+        return categories.get(1);
     }
+
+    public String getClothName(){
+        List<CategoryModel> categories= new ArrayList<CategoryModel>();
+        categories =  repositoryInteractor.getAllCategories();
+        CategoryModel cat = categories.get(1);
+
+        List<ClothesModel> clothes = cat.getCategoryClothes();
+
+        return clothes.get(0).getName();
+    }
+
+    public String getFavName(){
+        List<CategoryModel> categories= new ArrayList<CategoryModel>();
+        categories =  repositoryInteractor.getAllCategories();
+        CategoryModel cat = categories.get(1);
+
+        List<ClothesModel> clothes = cat.getCategoryClothes();
+
+        return clothes.get(0).getLabel().getName();
+    }
+
+
 }

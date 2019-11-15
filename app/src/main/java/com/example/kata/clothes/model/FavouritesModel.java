@@ -1,30 +1,25 @@
 package com.example.kata.clothes.model;
 
+import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 import com.orm.dsl.Unique;
 
 import java.util.List;
 
 @Table
-public class FavouritesModel{
-    @Unique
-    private long id;
+public class FavouritesModel extends SugarRecord{
+    private Long id;
     private String name;
-    private List<ClothesModel> clothes;
 
-//    public FavouritesModel(long id, String name, List<ClothesModel> clothes) {
-//        this.id = id;
-//        this.name = name;
-//        this.clothes = clothes;
-//    }
-
-
-    public long getId() {
-        return id;
+    public FavouritesModel() {
+    }
+    public FavouritesModel(String name) {
+        this.name = name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -35,11 +30,10 @@ public class FavouritesModel{
         this.name = name;
     }
 
-    public List<ClothesModel> getClothes() {
-        return clothes;
+    public List<ClothesModel> getFavouritesClothes() {
+        List<ClothesModel>  clothesList = ClothesModel.find(ClothesModel.class, "label = ?", this.getId().toString());
+        return clothesList;
+
     }
 
-    public void setClothes(List<ClothesModel> clothes) {
-        this.clothes = clothes;
-    }
 }
