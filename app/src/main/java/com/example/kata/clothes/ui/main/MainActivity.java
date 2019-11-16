@@ -17,6 +17,8 @@ import com.example.kata.clothes.model.CategoryModel;
 import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.create.CreateFragment;
+import com.example.kata.clothes.ui.detail.ClothesFragment;
+import com.example.kata.clothes.ui.detail.dummy.DummyContent;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
 
 
@@ -29,7 +31,8 @@ import dagger.Module;
 
 
 public class MainActivity extends AppCompatActivity implements MainScreen,
-        CategoriesFragment.OnListFragmentInteractionListener {
+        CategoriesFragment.OnListFragmentInteractionListener,
+        ClothesFragment.OnListFragmentInteractionListener{
     @Inject
     MainPresenter mainPresenter;
 
@@ -116,6 +119,16 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
 
     @Override
     public void onListFragmentInteraction(CategoryModel item) {
+        Fragment clothesFragment = new ClothesFragment();
+        String tag = "clothesfragment";
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, clothesFragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 
