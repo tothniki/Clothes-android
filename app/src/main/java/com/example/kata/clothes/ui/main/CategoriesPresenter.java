@@ -1,5 +1,7 @@
 package com.example.kata.clothes.ui.main;
 
+import android.util.Log;
+
 import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
 import com.example.kata.clothes.model.CategoryModel;
@@ -14,6 +16,8 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 
 public class CategoriesPresenter extends Presenter<CategoriesScreen> {
+    private static final String TAG = "CategoryPresenter";
+
     @Inject
     ClothesInteractor clothesInteractor;
     @Inject
@@ -36,12 +40,9 @@ public class CategoriesPresenter extends Presenter<CategoriesScreen> {
 
 
     public void loadCategoriesFromRepo(){
-        executor.execute(new Runnable(){
-            @Override
-            public void run(){
-                List<CategoryModel> list = repositoryInteractor.getAllCategories();
-                screen.showCategories(list);
-            }
-        });
+        List<CategoryModel> list = repositoryInteractor.getAllCategories();
+        int num = list.size();
+        Log.e(TAG, "*****************************************************loadcategoriesFromRepo:" + num);
+        screen.showCategories(list);
     }
 }

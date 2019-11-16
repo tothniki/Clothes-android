@@ -1,28 +1,32 @@
 package com.example.kata.clothes.ui.main;
 
+import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.kata.clothes.R;
 
+import com.example.kata.clothes.model.CategoryModel;
 import com.example.kata.clothes.ui.main.CategoriesFragment.OnListFragmentInteractionListener;
-import com.example.kata.clothes.ui.main.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link CategoryModel} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoriesRecyclerViewAdapter.ViewHolder> {
+    private static final String TAG = "RecycleViewAdapter";
 
-    private final List<DummyItem> mValues;
+    private final List<CategoryModel> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyCategoriesRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyCategoriesRecyclerViewAdapter(List<CategoryModel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,8 +41,8 @@ public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCate
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+//        holder.mIdView.setText(mValues.get(position).getId().toString());
+        holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +63,14 @@ public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCate
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+//        public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public CategoryModel mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+//            mIdView = view.findViewById(R.id.item_number);
             mContentView = view.findViewById(R.id.content);
         }
 

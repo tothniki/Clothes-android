@@ -18,7 +18,7 @@ import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.create.CreateFragment;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
-import com.example.kata.clothes.ui.main.dummy.DummyContent;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(CategoryModel item) {
 
     }
 

@@ -7,15 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.R;
-import com.example.kata.clothes.ui.main.dummy.DummyContent;
-import com.example.kata.clothes.ui.main.dummy.DummyContent.DummyItem;
+import com.example.kata.clothes.model.CategoryModel;
 
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,7 +29,8 @@ import javax.inject.Inject;
 // * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
 // * interface.
 // */
-public class CategoriesFragment extends Fragment {
+public class CategoriesFragment extends Fragment implements CategoriesScreen {
+    private List<CategoryModel> categories = new ArrayList<>();
     private static final String TAG = "categoriesFragment";
     @Inject
     CategoriesPresenter categoriesPresenter;
@@ -57,6 +61,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClothesApplication.injector.inject(this);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -68,6 +73,10 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories_list, container, false);
 
+        //Get the categories list
+        categoriesPresenter.attachScreen(this);
+        categoriesPresenter.loadCategoriesFromRepo();
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -77,7 +86,9 @@ public class CategoriesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCategoriesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            int num = this.categories.size();
+            Log.e(TAG, "*****************************************************categories size:" + num);
+            recyclerView.setAdapter(new MyCategoriesRecyclerViewAdapter(this.categories, mListener));
         }
         return view;
     }
@@ -100,6 +111,17 @@ public class CategoriesFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        categoriesPresenter.detachScreen();
+    }
+
+    @Override
+    public void showCategories(final List<CategoryModel> list) {
+        this.categories = list;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -112,7 +134,7 @@ public class CategoriesFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(CategoryModel item);
     }
 //    @Nullable
 //    @Override
