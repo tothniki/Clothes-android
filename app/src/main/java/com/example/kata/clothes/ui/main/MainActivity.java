@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.create.CreateFragment;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
+import com.example.kata.clothes.ui.main.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ import javax.inject.Inject;
 import dagger.Module;
 
 
-public class MainActivity extends AppCompatActivity implements MainScreen {
+public class MainActivity extends AppCompatActivity implements MainScreen,
+        CategoriesFragment.OnListFragmentInteractionListener {
     @Inject
     MainPresenter mainPresenter;
 
@@ -43,8 +46,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
 
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new CategoriesFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriesFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -52,19 +58,27 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedfragment = null;
+                    String tag = null;
                     switch (item.getItemId()) {
                         case R.id.nav_categories:
                             selectedfragment = new CategoriesFragment();
+                            tag = "categoriesFragment";
                             break;
                         case R.id.nav_favourites:
                             selectedfragment = new FavouritesFragment();
+                            tag = "favouritesFragment";
                             break;
                         case R.id.nav_add:
                             selectedfragment = new CreateFragment();
+                            tag = "createFragment";
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedfragment).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                            selectedfragment).commit();
+                    FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                    transaction1.replace(R.id.fragment_container, selectedfragment, tag);
+                    transaction1.addToBackStack(null);
+                    transaction1.commit();
                     return true;
                 }
             };
@@ -99,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         String name = "Main";
         Log.i("Meal", "Set new screen name: " + name);
     }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
 
 //    @Override
 //    public void onRefresh() {
