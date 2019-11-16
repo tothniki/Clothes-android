@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     @Inject
     MainPresenter mainPresenter;
 
+    private CategoryModel selectedCategory = null;
+
     private static final String TAG = "MainActivity";
 
 
@@ -118,17 +120,22 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     }
 
     @Override
-    public void onListFragmentInteraction(CategoryModel item) {
+    public void onListFragmentInteraction(CategoryModel category) {
+        this.selectedCategory = category;
         Fragment clothesFragment = new ClothesFragment();
-        String tag = "clothesfragment";
+        String tag = "clothesFragment";
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, clothesFragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    public CategoryModel getSelectedCategory() {
+        return selectedCategory;
+    }
+
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(ClothesModel item) {
 
     }
 

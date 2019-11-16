@@ -7,22 +7,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.kata.clothes.R;
 
+import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.ui.detail.ClothesFragment.OnListFragmentInteractionListener;
-import com.example.kata.clothes.ui.detail.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link ClothesModel} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<ClothesModel> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyClothesRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyClothesRecyclerViewAdapter(List<ClothesModel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,8 +38,8 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        //holder.mIdView.setText(mValues.get(position).getId().toString());
+        holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +60,14 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        //public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public ClothesModel mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.cloth_item_number);
+            //mIdView = view.findViewById(R.id.cloth_item_number);
             mContentView = view.findViewById(R.id.cloth_content);
         }
 

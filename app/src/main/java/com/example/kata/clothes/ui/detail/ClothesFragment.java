@@ -11,11 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.R;
-import com.example.kata.clothes.ui.detail.dummy.DummyContent;
-import com.example.kata.clothes.ui.detail.dummy.DummyContent.DummyItem;
+import com.example.kata.clothes.model.CategoryModel;
+import com.example.kata.clothes.model.ClothesModel;
+import com.example.kata.clothes.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 ///**
 // * A fragment representing a list of Items.
@@ -23,7 +28,13 @@ import java.util.List;
 // * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
 // * interface.
 // */
-public class ClothesFragment extends Fragment {
+public class ClothesFragment extends Fragment implements ClothesScreen{
+    private List<ClothesModel> clothes = new ArrayList<>();
+    private static final String TAG = "clothesFragment";
+    private CategoryModel category = null;
+    @Inject
+    ClothesPresenter clothesPresenter;
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -51,16 +62,23 @@ public class ClothesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClothesApplication.injector.inject(this);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        // get the selected category from the activity
+        this.category = ((MainActivity)getActivity()).getSelectedCategory();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clothes_list, container, false);
+
+        //Get the clothes list
+        clothesPresenter.attachScreen(this);
+        clothesPresenter.loadClothesOfCategory(this.category);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -71,7 +89,7 @@ public class ClothesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyClothesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyClothesRecyclerViewAdapter(this.clothes,  mListener));
         }
         return view;
     }
@@ -94,6 +112,17 @@ public class ClothesFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        clothesPresenter.detachScreen();
+    }
+
+    @Override
+    public void showClothes(final List<ClothesModel> list) {
+        this.clothes = list;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -106,8 +135,9 @@ public class ClothesFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(ClothesModel item);
     }
+
 //    @Nullable
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,

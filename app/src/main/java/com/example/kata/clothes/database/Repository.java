@@ -66,5 +66,7 @@ public interface Repository {
     void removeAllFavourites();
 
     boolean isInDBFav(FavouritesModel favourite);
+
+    List<ClothesModel> getClothesOfCategory(CategoryModel category);
 }
 

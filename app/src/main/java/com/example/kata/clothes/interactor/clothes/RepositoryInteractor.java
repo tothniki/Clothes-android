@@ -136,5 +136,8 @@ public class RepositoryInteractor {
         return repository.isInDBFav(favourite);
     }
 
+    public List<ClothesModel> getClothesOfCategory(CategoryModel category){
+        return repository.getClothesOfCategory(category);
+    }
 
 }
