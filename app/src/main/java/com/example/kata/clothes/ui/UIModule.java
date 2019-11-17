@@ -3,6 +3,7 @@ import android.content.Context;
 
 import com.example.kata.clothes.ui.detail.ClothesPresenter;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
+import com.example.kata.clothes.ui.favourites.FavouritesPresenter;
 import com.example.kata.clothes.ui.main.CategoriesPresenter;
 import com.example.kata.clothes.ui.main.MainPresenter;
 
@@ -41,9 +42,9 @@ public class UIModule {
     @Singleton
     public ClothesPresenter provideClothesPresenter(){ return new ClothesPresenter();}
 
-//    @Provides
-//    @Singleton
-//    public FavouritesPresenter provideFavouritesPresenter(){ return new FavouritesPresenter();}
+    @Provides
+    @Singleton
+    public FavouritesPresenter provideFavouritesPresenter(){ return new FavouritesPresenter();}
 
     @Provides
     @Singleton

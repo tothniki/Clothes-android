@@ -8,6 +8,7 @@ import com.example.kata.clothes.ui.detail.ClothesFragment;
 import com.example.kata.clothes.ui.detail.ClothesPresenter;
 import com.example.kata.clothes.ui.detail.ClothesPresenter_MembersInjector;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
+import com.example.kata.clothes.ui.favourites.FavouritesPresenter;
 import com.example.kata.clothes.ui.main.CategoriesFragment;
 import com.example.kata.clothes.ui.main.CategoriesPresenter;
 import com.example.kata.clothes.ui.main.MainActivity;
@@ -35,8 +36,8 @@ public interface ClothesApplicationComponent {
         void inject(ClothesFragment clothesFragment);
         void inject(ClothesPresenter clothesPresenter);
 
-        //void inject(FavouritesFragment favouritesFragment);
-        //void inject(FavouritesPresenter favouritesPresenter);
+        void inject(FavouritesFragment favouritesFragment);
+        void inject(FavouritesPresenter favouritesPresenter);
 
 
 }

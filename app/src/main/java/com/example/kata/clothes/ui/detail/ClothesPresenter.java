@@ -5,6 +5,7 @@ import com.example.kata.clothes.interactor.clothes.ClothesInteractor;
 import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
 import com.example.kata.clothes.model.CategoryModel;
 import com.example.kata.clothes.model.ClothesModel;
+import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.Presenter;
 import com.example.kata.clothes.ui.detail.ClothesScreen;
 
@@ -39,5 +40,10 @@ public class ClothesPresenter extends Presenter<ClothesScreen> {
         screen.showClothes(list);
     }
 
+
+    public void loadClothesOfFavourites(FavouritesModel favourite){
+        List<ClothesModel> list = repositoryInteractor.getClothesOfFavourite(favourite);
+        screen.showClothes(list);
+    }
 }
 

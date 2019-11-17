@@ -60,10 +60,10 @@ public class MainPresenter extends Presenter<MainScreen> {
 
 
         // create one cloth list containing two clothes
-        ClothesModel cloth = new ClothesModel("first", cat1, fav1, null);
-        ClothesModel cloth2 = new ClothesModel("second",cat2, fav2, null);
-        ClothesModel cloth3 = new ClothesModel("third",cat2, fav1, null);
-        ClothesModel cloth4 = new ClothesModel("fourth", cat1, fav2, null);
+        ClothesModel cloth = new ClothesModel("shirtA", cat1, fav1, null);
+        ClothesModel cloth2 = new ClothesModel("jeansA",cat2, fav2, null);
+        ClothesModel cloth3 = new ClothesModel("jeansB",cat2, fav1, null);
+        ClothesModel cloth4 = new ClothesModel("shirtB", cat1, fav2, null);
         cloth.save();
         cloth2.save();
         cloth3.save();

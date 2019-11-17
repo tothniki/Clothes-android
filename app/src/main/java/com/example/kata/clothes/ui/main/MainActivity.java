@@ -18,7 +18,6 @@ import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.create.CreateFragment;
 import com.example.kata.clothes.ui.detail.ClothesFragment;
-import com.example.kata.clothes.ui.detail.dummy.DummyContent;
 import com.example.kata.clothes.ui.favourites.FavouritesFragment;
 
 
@@ -32,11 +31,13 @@ import dagger.Module;
 
 public class MainActivity extends AppCompatActivity implements MainScreen,
         CategoriesFragment.OnListFragmentInteractionListener,
-        ClothesFragment.OnListFragmentInteractionListener{
+        ClothesFragment.OnListFragmentInteractionListener,
+        FavouritesFragment.OnListFragmentInteractionListener{
     @Inject
     MainPresenter mainPresenter;
 
     private CategoryModel selectedCategory = null;
+    private FavouritesModel selectedFavourite = null;
 
     private static final String TAG = "MainActivity";
 
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
 
     @Override
     public void onListFragmentInteraction(CategoryModel category) {
+        this.selectedFavourite = null;
         this.selectedCategory = category;
         Fragment clothesFragment = new ClothesFragment();
         String tag = "clothesFragment";
@@ -134,9 +136,25 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
         return selectedCategory;
     }
 
+    public FavouritesModel getSelectedFavourite() {
+        return selectedFavourite;
+    }
+
     @Override
     public void onListFragmentInteraction(ClothesModel item) {
 
+    }
+
+    @Override
+    public void onListFragmentInteraction(FavouritesModel favourite) {
+        this.selectedCategory = null;
+        this.selectedFavourite = favourite;
+        Fragment clothesFragment = new ClothesFragment();
+        String tag = "clothesFragment";
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, clothesFragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

@@ -68,5 +68,7 @@ public interface Repository {
     boolean isInDBFav(FavouritesModel favourite);
 
     List<ClothesModel> getClothesOfCategory(CategoryModel category);
+
+    List<ClothesModel> getClothesOfFavourite(FavouritesModel favourite);
 }
 

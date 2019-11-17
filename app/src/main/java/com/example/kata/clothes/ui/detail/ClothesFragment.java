@@ -15,6 +15,7 @@ import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.R;
 import com.example.kata.clothes.model.CategoryModel;
 import com.example.kata.clothes.model.ClothesModel;
+import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.main.MainActivity;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ClothesFragment extends Fragment implements ClothesScreen{
     private List<ClothesModel> clothes = new ArrayList<>();
     private static final String TAG = "clothesFragment";
     private CategoryModel category = null;
+    private FavouritesModel favourite = null;
     @Inject
     ClothesPresenter clothesPresenter;
 
@@ -69,6 +71,8 @@ public class ClothesFragment extends Fragment implements ClothesScreen{
         }
         // get the selected category from the activity
         this.category = ((MainActivity)getActivity()).getSelectedCategory();
+        this.favourite = ((MainActivity)getActivity()).getSelectedFavourite();
+
     }
 
     @Override
@@ -78,7 +82,12 @@ public class ClothesFragment extends Fragment implements ClothesScreen{
 
         //Get the clothes list
         clothesPresenter.attachScreen(this);
-        clothesPresenter.loadClothesOfCategory(this.category);
+
+        if(this.category != null){
+            clothesPresenter.loadClothesOfCategory(this.category);
+        }else if(this.favourite != null){
+            clothesPresenter.loadClothesOfFavourites(this.favourite);
+        }
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -119,7 +128,7 @@ public class ClothesFragment extends Fragment implements ClothesScreen{
     }
 
     @Override
-    public void showClothes(final List<ClothesModel> list) {
+    public void showClothes(List<ClothesModel> list) {
         this.clothes = list;
     }
 

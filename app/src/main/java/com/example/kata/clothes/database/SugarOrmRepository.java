@@ -197,6 +197,14 @@ public class SugarOrmRepository implements Repository {
         return clothesList;
     }
 
+
+
+    @Override
+    public List<ClothesModel> getClothesOfFavourite(FavouritesModel favourite) {
+        List<ClothesModel>  clothesList = SugarRecord.find(ClothesModel.class, "label = ?", favourite.getId().toString());
+        return clothesList;
+    }
+
 //    @Override
 //    public List<ClothesModel> getClothesOfCategory(CategoryModel category){
 //        List<ClothesModel>  clothesList = SugarRecord.find(ClothesModel.class, "category = ?", category.getId().toString());

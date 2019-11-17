@@ -140,4 +140,9 @@ public class RepositoryInteractor {
         return repository.getClothesOfCategory(category);
     }
 
+
+    public List<ClothesModel> getClothesOfFavourite(FavouritesModel favourite){
+        return repository.getClothesOfFavourite(favourite);
+    }
+
 }
