@@ -46,6 +46,10 @@ public class UIModule {
     @Singleton
     public FavouritesPresenter provideFavouritesPresenter(){ return new FavouritesPresenter();}
 
+//    @Provides
+//    @Singleton
+//    public FavouritesPresenter provideCreatePresenter(){ return new CreatePresenter();}
+
     @Provides
     @Singleton
     public Executor provideExecutor() {

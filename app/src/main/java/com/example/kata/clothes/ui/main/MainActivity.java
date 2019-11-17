@@ -1,5 +1,6 @@
 package com.example.kata.clothes.ui.main;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -32,7 +33,8 @@ import dagger.Module;
 public class MainActivity extends AppCompatActivity implements MainScreen,
         CategoriesFragment.OnListFragmentInteractionListener,
         ClothesFragment.OnListFragmentInteractionListener,
-        FavouritesFragment.OnListFragmentInteractionListener{
+        FavouritesFragment.OnListFragmentInteractionListener,
+        CreateFragment.OnFragmentInteractionListener{
     @Inject
     MainPresenter mainPresenter;
 
@@ -51,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
+
+        mainPresenter.attachScreen(this);
+        mainPresenter.initDataset();
+        Log.e(TAG, "-------------------------------------------------------------onSCreate: Dataset init done");
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new CategoriesFragment());
@@ -92,10 +98,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     @Override
     protected void onStart() {
         super.onStart();
-        mainPresenter.attachScreen(this);
-        Log.e(TAG, "-------------------------------------------------------------onStart: dataset empty");
-        mainPresenter.initDataset();
-        Log.e(TAG, "-------------------------------------------------------------onStart: Dataset init done");
+
+
         CategoryModel cm = mainPresenter.getCategory();
 
         Log.e(TAG, "-------------------------------------------------------------onStart: category name:" + cm.getName());
@@ -155,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
         transaction.replace(R.id.fragment_container, clothesFragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
 
