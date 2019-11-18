@@ -39,20 +39,20 @@ public class CreatePresenter extends Presenter<CreateScreen>{
 
     public void saveNewCloth(String cat, String fav, String file){
         Log.e(TAG, "-------------------------------------------------------------save new item  starts now ");
-        CategoryModel category = new CategoryModel(cat);
-        Log.e(TAG, "------------------------------------------------------------- create cat model");
-        repositoryInteractor.saveCategory(category);
-        Log.e(TAG, "------------------------------------------------------------- cat is saved");
+        // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
+        CategoryModel category = null;
+        if(cat != null){
+            category = repositoryInteractor.getCategoryByName(cat);
+            Log.e(TAG, "-------------------------------------------------------------saved category ");
+        }
 
-        FavouritesModel favourite = new FavouritesModel(fav);
-        Log.e(TAG, "-------------------------------------------------------------create fav model ");
-        repositoryInteractor.saveFavourite(favourite);
-        Log.e(TAG, "------------------------------------------------------------- fav is saved");
+        FavouritesModel favourite = null;
+        if(fav != null){
+            favourite = repositoryInteractor.getFavouriteByName(fav);
+            Log.e(TAG, "-------------------------------------------------------------saved favourite ");
+        }
 
-
-        Log.e(TAG, "------------------------------------------------------------- cloth fields: " + category + "-" + favourite + "-" + file);
         ClothesModel cloth = new ClothesModel("name", category, favourite, file);
-        Log.e(TAG, "-------------------------------------------------------------create cloth");
         repositoryInteractor.saveCloth(cloth);
         Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
 

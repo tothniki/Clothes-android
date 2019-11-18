@@ -70,5 +70,9 @@ public interface Repository {
     List<ClothesModel> getClothesOfCategory(CategoryModel category);
 
     List<ClothesModel> getClothesOfFavourite(FavouritesModel favourite);
+
+    public CategoryModel getCategoryByName(String name);
+
+    public FavouritesModel getFavouriteByName(String name);
 }
 

@@ -97,6 +97,32 @@ public class SugarOrmRepository implements Repository {
         return new CategoryModel();
     }
 
+    public CategoryModel getCategoryByName(String name){
+        List<CategoryModel> list = SugarRecord.find(CategoryModel.class, "name = ?", name);
+        CategoryModel m = null;
+        if(list.size() != 0){
+            m = list.get(0);
+            return m;
+        }
+        else{
+            m = new CategoryModel(name);
+            SugarRecord.saveInTx(m);
+            return m;
+        }
+    }
+
+    public FavouritesModel getFavouriteByName(String name){
+        List<FavouritesModel> favList = SugarRecord.find(FavouritesModel.class, "name = ?", name);
+        FavouritesModel m = null;
+        if(favList.size() != 0){
+            m = favList.get(0);
+            return m;
+        }
+        m = new FavouritesModel(name);
+        SugarRecord.saveInTx(m);
+        return m;
+    }
+
     @Override
     public void saveCategory(CategoryModel category) {
         SugarRecord.saveInTx(category);
@@ -135,6 +161,7 @@ public class SugarOrmRepository implements Repository {
     public boolean isInDBCat(CategoryModel category) {
         return SugarRecord.findById(CategoryModel.class, category.getId()) != null;
     }
+
 
     //Favourites
     @Override

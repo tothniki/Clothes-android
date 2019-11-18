@@ -145,4 +145,12 @@ public class RepositoryInteractor {
         return repository.getClothesOfFavourite(favourite);
     }
 
+    public CategoryModel getCategoryByName(String name){
+        return repository.getCategoryByName(name);
+    }
+
+    public FavouritesModel getFavouriteByName(String name){
+        return repository.getFavouriteByName(name);
+    }
+
 }

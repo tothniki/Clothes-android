@@ -135,10 +135,10 @@ public class CreateFragment extends Fragment implements CreateScreen {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100) {
-//            if (resultCode == RESULT_OK) {
+            //if (resultCode == RESULT_OK) {
                 Log.e(TAG, "-------------------------------------------------------------ActivityResult:" + this.file.toString());
                 imageView.setImageURI(this.file);
-//            }
+            //}
         }
     }
 
@@ -180,8 +180,19 @@ public class CreateFragment extends Fragment implements CreateScreen {
 
         createClothButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                saveNewCloth();
-                ShowMessageDialog("New item added successfully!");
+                String cat = categoryEditText.getText().toString();
+                String fav = favouriteEditText.getText().toString();
+                if(file != null && imageView.getDrawable() != null && cat!=null && !cat.isEmpty()){
+                    saveNewCloth(cat, fav);
+                    ShowMessageDialog("New item added successfully!");
+                    Log.e(TAG, "-------------------------------------------------------------save new item into DB-" + cat + "-" );
+                    imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
+                    categoryEditText.setText(null);
+                    favouriteEditText.setText(null);
+                    file = null;
+                }else{
+                    ShowMessageDialog("Make sure you have a picture and a category!");
+                }
         }
         });
         return v;
@@ -195,23 +206,16 @@ public class CreateFragment extends Fragment implements CreateScreen {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
-                categoryEditText.setText(null);
-                favouriteEditText.setText(null);
-                file = null;
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-    public void saveNewCloth(){
-        String cat = categoryEditText.getText().toString();
-        String fav = favouriteEditText.getText().toString();
+    public void saveNewCloth(String cat, String fav){
+
         String uri = null;
-        if(file != null){
-            uri = file.toString();
-        }
+        uri = file.toString();
         createPresenter.saveNewCloth(cat, fav, uri);
         Log.e(TAG, "-------------------------------------------------------------save new item into DB: " + cat + "--" + fav);
     }
