@@ -1,18 +1,24 @@
 package com.example.kata.clothes.ui.create;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +34,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import static android.support.v4.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
 
 /**
@@ -38,16 +46,21 @@ import static android.support.v4.provider.FontsContractCompat.FontRequestCallbac
  * Use the {@link CreateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateFragment extends Fragment {
+public class CreateFragment extends Fragment implements CreateScreen {
 
     private Button takePictureButton;
     private ImageView imageView;
     private Uri file = null;
+    private ClothesModel newCloth;
+    private TextInputEditText categoryEditText;
+    private TextInputEditText favouriteEditText;
+    private Button createClothButton;
+
+    @Inject
+    CreatePresenter createPresenter;
+
 
     private static final String TAG = "CreateFragment";
-
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,20 +112,9 @@ public class CreateFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 takePictureButton.setEnabled(true);
+                createClothButton.setEnabled(true);
             }
         }
-    }
-
-    public void takePicture(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = Uri.fromFile(getOutputMediaFile());
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-
-        startActivityForResult(intent, 100);
-    }
-
-    public void addNewCloth(View view){
-
     }
 
     private static File getOutputMediaFile(){
@@ -136,7 +138,6 @@ public class CreateFragment extends Fragment {
 //            if (resultCode == RESULT_OK) {
                 Log.e(TAG, "-------------------------------------------------------------ActivityResult:" + this.file.toString());
                 imageView.setImageURI(this.file);
-
 //            }
         }
     }
@@ -146,12 +147,19 @@ public class CreateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create, container, false);
+        //Get the categories list
+        createPresenter.attachScreen(this);
 
         takePictureButton = (Button) v.findViewById(R.id.button_image);
         imageView = (ImageView) v.findViewById(R.id.imageview);
+        categoryEditText = (TextInputEditText) v.findViewById(R.id.cat_input);
+        favouriteEditText = (TextInputEditText) v.findViewById(R.id.fav_input);
+        createClothButton = (Button) v.findViewById((R.id.button_create));
+
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             takePictureButton.setEnabled(false);
+            createClothButton.setEnabled(false);
             ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
 
@@ -170,10 +178,43 @@ public class CreateFragment extends Fragment {
             }
         });
 
-
+        createClothButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                saveNewCloth();
+                ShowMessageDialog("New item added successfully!");
+        }
+        });
         return v;
     }
 
+    public void ShowMessageDialog(String str){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(str);
+        builder.setCancelable(false);
+        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
+                categoryEditText.setText(null);
+                favouriteEditText.setText(null);
+                file = null;
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void saveNewCloth(){
+        String cat = categoryEditText.getText().toString();
+        String fav = favouriteEditText.getText().toString();
+        String uri = null;
+        if(file != null){
+            uri = file.toString();
+        }
+        createPresenter.saveNewCloth(cat, fav, uri);
+        Log.e(TAG, "-------------------------------------------------------------save new item into DB: " + cat + "--" + fav);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -198,6 +239,12 @@ public class CreateFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        createPresenter.detachScreen();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -213,11 +260,5 @@ public class CreateFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
 
     }
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                                  Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_create, container, false);
-//    }
+
 }

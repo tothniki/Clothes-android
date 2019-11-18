@@ -10,19 +10,27 @@ public class ClothesModel extends SugarRecord{
     private String name;
     private CategoryModel category;
     private FavouritesModel label;
-    private byte[] picture;
+    //private byte[] picture;
+    private String uri;
 
     public ClothesModel() {
 
     }
 
-    public ClothesModel(String name, CategoryModel category, FavouritesModel label, byte[] picture ) {
+    public ClothesModel(String name, CategoryModel category, FavouritesModel label, String uri) {
         this.name = name;
         this.category = CategoryModel.find(CategoryModel.class, "name = ?", category.getName()).get(0);
         this.label = FavouritesModel.find(FavouritesModel.class, "name = ?", label.getName()).get(0);
-        this.picture = picture;
+        //this.picture = picture;
+        this.uri = uri;
+    }
+    public String getUri() {
+        return uri;
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
     public String getName() {
         return name;
     }
@@ -51,13 +59,13 @@ public class ClothesModel extends SugarRecord{
         this.label = label;
     }
 
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
+//    public byte[] getPicture() {
+//        return picture;
+//    }
+//
+//    public void setPicture(byte[] picture) {
+//        this.picture = picture;
+//    }
 
 
 
