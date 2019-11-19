@@ -4,25 +4,22 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+
     <!--<TextView-->
-        <!--android:id="@+id/cloth_item_number"-->
+        <!--android:id="@+id/cloth_content"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_margin="@dimen/text_margin"-->
         <!--android:textAppearance="?attr/textAppearanceListItem"-->
         <!--android:text="@string/title_clothes"/>-->
 
-    <TextView
-        android:id="@+id/cloth_content"
+    <ImageView
+        android:id="@+id/cloth_content_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:text="@string/title_clothes"/>
+        android:padding="10dp"
+        android:src="@drawable/ic_camera_alt_black_24dp"
+        android:adjustViewBounds="true"
+        />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/title_clothes"-->
-        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>-->
 </LinearLayout>
