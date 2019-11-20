@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.kata.clothes.R;
 
@@ -43,6 +44,7 @@ public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCate
         holder.mItem = mValues.get(position);
 //        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mContentView.setText(mValues.get(position).getName());
+        holder.mImageView.setImageResource(mValues.get(position).getResource());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,7 @@ public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCate
         public final View mView;
 //        public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mImageView;
         public CategoryModel mItem;
 
         public ViewHolder(View view) {
@@ -72,6 +75,7 @@ public class MyCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<MyCate
             mView = view;
 //            mIdView = view.findViewById(R.id.item_number);
             mContentView = view.findViewById(R.id.content);
+            mImageView = view.findViewById(R.id.cat_content_iv);
         }
 
         @Override

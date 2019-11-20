@@ -3,6 +3,7 @@ package com.example.kata.clothes.ui.main;
 import javax.inject.Inject;
 
 import com.example.kata.clothes.ClothesApplication;
+import com.example.kata.clothes.R;
 import com.example.kata.clothes.interactor.clothes.ClothesInteractor;
 import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
 import com.example.kata.clothes.model.CategoryModel;
@@ -48,10 +49,31 @@ public class MainPresenter extends Presenter<MainScreen> {
 //        favourites.add(fav2);
 //        repositoryInteractor.saveAllFavourites(favourites);
 
-        CategoryModel cat1 = new CategoryModel("Shirts");
-        CategoryModel cat2 = new CategoryModel("Jeans");
+        CategoryModel cat1 = new CategoryModel("dummyShirts", R.drawable.ic_camera_alt_black_24dp);
+        CategoryModel cat2 = new CategoryModel("dummyJeans", R.drawable.ic_camera_alt_black_24dp);
         cat1.save();
         cat2.save();
+
+        CategoryModel cat_tshirt = new CategoryModel("T-Shirt", R.drawable.ic_cat_tshirt);
+        CategoryModel cat_shirt = new CategoryModel("Shirt", R.drawable.ic_cat_shirt);
+        CategoryModel cat_skirt = new CategoryModel("Skirt", R.drawable.ic_cat_skirt);
+        CategoryModel cat_jacket = new CategoryModel("Jacket", R.drawable.ic_cat_jacket);
+        CategoryModel cat_trousers = new CategoryModel("Trousers", R.drawable.ic_cat_trousers);
+        CategoryModel cat_heels = new CategoryModel("Heels", R.drawable.ic_cat_heels);
+        CategoryModel cat_dress = new CategoryModel("Dress", R.drawable.ic_cat_dress);
+        CategoryModel cat_accessories = new CategoryModel("Accessories", R.drawable.ic_cat_bag);
+        CategoryModel cat_misc = new CategoryModel("Others", R.drawable.ic_camera_alt_black_24dp);
+
+        cat_tshirt.save();
+        cat_shirt.save();
+        cat_skirt.save();
+        cat_jacket.save();
+        cat_trousers.save();
+        cat_heels.save();
+        cat_dress.save();
+        cat_accessories.save();
+        cat_misc.save();
+
 
 //        List<CategoryModel> categories = new ArrayList<>();
 //        categories.add(cat1);

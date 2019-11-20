@@ -5,4 +5,11 @@
     <color name="colorAccent">#F77ABC</color>
     <color name="colorNavbar">#F8DEEC</color>
     <color name="button">#FFFFFF</color>
+    <color name="colorNavbar_visible">#88F8DEEC</color>
+    <color name="colorAccent_visible">#99F77ABC</color>
+    <color name="colorPrimaryDark_visible">#88303F9F</color>
+    <color name="white_visible">#9FFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorPrimary_visible">#553F51B5</color>
+
 </resources>

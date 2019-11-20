@@ -105,7 +105,8 @@ public class SugarOrmRepository implements Repository {
             return m;
         }
         else{
-            m = new CategoryModel(name);
+            m = new CategoryModel();
+            m.setName(name);
             SugarRecord.saveInTx(m);
             return m;
         }

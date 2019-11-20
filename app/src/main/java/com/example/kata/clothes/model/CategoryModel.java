@@ -10,15 +10,23 @@ import java.util.List;
 public class CategoryModel extends SugarRecord{
     private Long id;
     private String name;
+    private int resource;
 
     public CategoryModel() {
     }
 
-    public CategoryModel(String name) {
+    public CategoryModel(String name, int res) {
         this.name = name;
+        this.resource = res;
     }
 
+    public int getResource() {
+        return resource;
+    }
 
+    public void setResource(int resource) {
+        this.resource = resource;
+    }
     public Long getId() {
         return id;
     }
