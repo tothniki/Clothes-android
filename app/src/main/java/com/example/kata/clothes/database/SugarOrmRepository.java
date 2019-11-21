@@ -105,14 +105,25 @@ public class SugarOrmRepository implements Repository {
             return m;
         }
         else{
-            m = new CategoryModel();
-            m.setName(name);
-            SugarRecord.saveInTx(m);
-            return m;
+            List<CategoryModel> list1 = SugarRecord.find(CategoryModel.class, "name = ?", "Others");
+            CategoryModel m1 = null;
+            if(list1.size() != 0){
+                m1 = list1.get(0);
+                return m1;
+            }else{
+                CategoryModel m2 = new CategoryModel();
+                m2.setName("Others");
+                SugarRecord.saveInTx(m2);
+                return m2;
+            }
+
         }
     }
 
     public FavouritesModel getFavouriteByName(String name){
+        if(name.isEmpty()){
+            name = "null";
+        }
         List<FavouritesModel> favList = SugarRecord.find(FavouritesModel.class, "name = ?", name);
         FavouritesModel m = null;
         if(favList.size() != 0){
@@ -167,7 +178,7 @@ public class SugarOrmRepository implements Repository {
     //Favourites
     @Override
     public List<FavouritesModel> getAllFavourites() {
-        List<FavouritesModel> f = SugarRecord.listAll(FavouritesModel.class);
+        List<FavouritesModel> f = SugarRecord.find(FavouritesModel.class, "name != ?", "null");
         return f;
     }
 

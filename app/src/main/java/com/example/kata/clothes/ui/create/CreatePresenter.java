@@ -38,6 +38,9 @@ public class CreatePresenter extends Presenter<CreateScreen>{
 
 
     public void saveNewCloth(String cat, String fav, String file){
+        if(fav.isEmpty()){
+            fav = "null";
+        }
         Log.e(TAG, "-------------------------------------------------------------save new item  starts now ");
         // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
         CategoryModel category = null;

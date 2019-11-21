@@ -21,6 +21,7 @@ public class ClothesModel extends SugarRecord{
         this.name = name;
         this.category = CategoryModel.find(CategoryModel.class, "name = ?", category.getName()).get(0);
         this.label = FavouritesModel.find(FavouritesModel.class, "name = ?", label.getName()).get(0);
+
         //this.picture = picture;
         this.uri = uri;
     }

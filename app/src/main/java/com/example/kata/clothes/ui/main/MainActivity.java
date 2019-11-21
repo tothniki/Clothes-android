@@ -100,15 +100,6 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
         super.onStart();
 
 
-        CategoryModel cm = mainPresenter.getCategory();
-
-        Log.e(TAG, "-------------------------------------------------------------onStart: category name:" + cm.getName());
-        String cloth = mainPresenter.getClothName();
-        Log.e(TAG, "-------------------------------------------------------------onStart: cloth name:" + cloth);
-
-        String fav = mainPresenter.getFavName();
-        Log.e(TAG, "-------------------------------------------------------------onStart: fav name:" + fav);
-
     }
 
     @Override
