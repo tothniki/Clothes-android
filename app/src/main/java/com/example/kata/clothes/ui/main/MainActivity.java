@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
 
     private CategoryModel selectedCategory = null;
     private FavouritesModel selectedFavourite = null;
+    private ClothesModel selectedCloth = null;
+
 
     private static final String TAG = "MainActivity";
 
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
                             tag = "favouritesFragment";
                             break;
                         case R.id.nav_add:
+                            setSelectedCloth(null);
                             selectedfragment = new CreateFragment();
                             tag = "createFragment";
                             break;
@@ -134,9 +137,28 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     public FavouritesModel getSelectedFavourite() {
         return selectedFavourite;
     }
+    public ClothesModel getSelectedCloth() {
+        return selectedCloth;
+    }
+    public void setSelectedCloth(ClothesModel item) {
+        this.selectedCloth = item;
+    }
 
     @Override
-    public void onListFragmentInteraction(ClothesModel item) {
+    public void onListFragmentInteraction(ClothesModel item, String option) {
+        this.selectedCloth = null;
+        this.selectedCloth = item;
+        switch (option) {
+            case "edit":
+                Fragment createFragment = new CreateFragment();
+                String tag = "createFragment";
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, createFragment, tag);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            case "delete": // Handle option2 Click
+                ;
+        }
 
     }
 

@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.R;
 import com.example.kata.clothes.model.ClothesModel;
+import com.example.kata.clothes.ui.main.MainActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ import static android.support.v4.provider.FontsContractCompat.FontRequestCallbac
  * create an instance of this fragment.
  */
 public class CreateFragment extends Fragment implements CreateScreen {
-
+    private static final String TAG = "createFragment";
     private Button takePictureButton;
     private ImageView imageView;
     private Uri file = null;
@@ -56,11 +57,11 @@ public class CreateFragment extends Fragment implements CreateScreen {
     private TextInputEditText favouriteEditText;
     private Button createClothButton;
 
+    private ClothesModel selectedCloth = null;
+
     @Inject
     CreatePresenter createPresenter;
 
-
-    private static final String TAG = "CreateFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,6 +105,7 @@ public class CreateFragment extends Fragment implements CreateScreen {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        this.selectedCloth = ((MainActivity)getActivity()).getSelectedCloth();
     }
 
     @Override
@@ -163,6 +165,13 @@ public class CreateFragment extends Fragment implements CreateScreen {
             ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
 
+        if(this.selectedCloth != null){
+            this.file = Uri.parse(this.selectedCloth.getUri());
+            imageView.setImageURI(this.file);
+            categoryEditText.setText(this.selectedCloth.getCategory().getName());
+            favouriteEditText.setText(this.selectedCloth.getLabel().getName());
+        }
+
         takePictureButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
@@ -184,7 +193,9 @@ public class CreateFragment extends Fragment implements CreateScreen {
                 String fav = favouriteEditText.getText().toString();
                 if(file != null && imageView.getDrawable() != null && cat!=null && !cat.isEmpty()){
                     saveNewCloth(cat, fav);
-                    ShowMessageDialog("New item added successfully!");
+                    ShowMessageDialog("Item saved successfully!");
+                    //reset the selected item
+                    ((MainActivity)getActivity()).setSelectedCloth(null);
                     Log.e(TAG, "-------------------------------------------------------------save new item into DB-" + cat + "-" );
                     imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
                     categoryEditText.setText(null);
@@ -213,10 +224,15 @@ public class CreateFragment extends Fragment implements CreateScreen {
     }
 
     public void saveNewCloth(String cat, String fav){
-
         String uri = null;
         uri = file.toString();
-        createPresenter.saveNewCloth(cat, fav, uri);
+        if(this.selectedCloth != null){
+            createPresenter.updateCloth(cat, fav, uri, this.selectedCloth);
+        }else{
+            createPresenter.saveNewCloth(cat, fav, uri);
+        }
+
+
         Log.e(TAG, "-------------------------------------------------------------save new item into DB: " + cat + "--" + fav);
     }
     // TODO: Rename method, update argument and hook method into UI event

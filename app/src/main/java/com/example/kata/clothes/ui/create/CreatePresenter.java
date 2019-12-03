@@ -60,4 +60,31 @@ public class CreatePresenter extends Presenter<CreateScreen>{
         Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
 
     }
+    public void updateCloth(String cat, String fav, String file, ClothesModel item){
+        if(fav.isEmpty()){
+            fav = "null";
+        }
+        Log.e(TAG, "-------------------------------------------------------------update item  starts now ");
+        // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
+        CategoryModel category = null;
+        if(cat != null){
+            category = repositoryInteractor.getCategoryByName(cat);
+            Log.e(TAG, "-------------------------------------------------------------saved category ");
+        }
+
+        FavouritesModel favourite = null;
+        if(fav != null){
+            favourite = repositoryInteractor.getFavouriteByName(fav);
+            Log.e(TAG, "-------------------------------------------------------------saved favourite ");
+        }
+        repositoryInteractor.removeCloth(item);
+        item.setName("name");
+        item.setCategory(category);
+        item.setLabel(favourite);
+        item.setUri(file);
+        repositoryInteractor.saveCloth(item);
+        Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
+
+
+    }
 }
