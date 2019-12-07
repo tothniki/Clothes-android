@@ -1,11 +1,14 @@
 package com.example.kata.clothes.ui.main;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -149,19 +152,25 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
     @Override
     public void onListFragmentInteraction(ClothesModel item, String option) {
         this.selectedCloth = item;
+        Fragment fragment = null;
+        String tag = null;
         switch (option) {
             case "edit":
-                Fragment createFragment = new CreateFragment();
-                String tag = "createFragment";
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, createFragment, tag);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            case "delete": // Handle option2 Click
-                ;
+                fragment = new CreateFragment();
+                tag = "createFragment";
+                break;
+            case "delete":
+                mainPresenter.deleteCloth(item);
+                fragment = new FavouritesFragment();
+                tag = "favouritesFragment";
+                break;
         }
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
+
 
     @Override
     public void onListFragmentInteraction(FavouritesModel favourite) {

@@ -2,8 +2,10 @@ package com.example.kata.clothes.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
@@ -70,7 +72,7 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
         holder.mView.setOnLongClickListener(new View.OnLongClickListener(){
             @SuppressLint("RestrictedApi")
             @Override
-            public boolean onLongClick(View view) {
+            public boolean onLongClick(final View view) {
                 if (null != mListener) {
                     MenuBuilder menuBuilder =new MenuBuilder(view.getContext());
                     MenuInflater inflater = new MenuInflater(view.getContext());
@@ -86,7 +88,26 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
                                     mListener.onListFragmentInteraction(holder.mItem, "edit");
                                     return true;
                                 case R.id.delete_clothes: // Handle option2 Click
-                                    mListener.onListFragmentInteraction(holder.mItem, "delete");
+                                    // SHOW message dialog
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                    builder.setMessage("Do you want to delete this item?");
+                                    builder.setCancelable(true);
+                                    builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            mListener.onListFragmentInteraction(holder.mItem, "delete");
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
                                 default:
                                     return false;
                             }

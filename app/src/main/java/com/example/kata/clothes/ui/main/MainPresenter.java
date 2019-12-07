@@ -93,5 +93,8 @@ public class MainPresenter extends Presenter<MainScreen> {
         return clothes.get(0).getLabel().getName();
     }
 
+    public void deleteCloth(ClothesModel item){
+        repositoryInteractor.removeCloth(item);
+    }
 
 }
