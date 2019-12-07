@@ -146,6 +146,10 @@ public class ClothesFragment extends Fragment implements ClothesScreen{
         // TODO: Update argument type and name
         void onListFragmentInteraction(ClothesModel item, String option);
     }
+//    public interface OnListFragmentInteractionListener {
+//        // TODO: Update argument type and names
+//        void onListFragmentInteraction(ClothesModel item);
+//    }
 
 //    @Nullable
 //    @Override

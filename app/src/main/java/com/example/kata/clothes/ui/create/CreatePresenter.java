@@ -37,9 +37,9 @@ public class CreatePresenter extends Presenter<CreateScreen>{
     }
 
 
-    public void saveNewCloth(String cat, String fav, String file){
+    public void saveNewCloth(String cat, String fav, String file, ClothesModel selected){
         if(fav.isEmpty()){
-            fav = "null";
+            fav = "no_label_set";
         }
         Log.e(TAG, "-------------------------------------------------------------save new item  starts now ");
         // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
@@ -56,35 +56,40 @@ public class CreatePresenter extends Presenter<CreateScreen>{
         }
 
         ClothesModel cloth = new ClothesModel("name", category, favourite, file);
+//        cloth.save();
         repositoryInteractor.saveCloth(cloth);
         Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
 
-    }
-    public void updateCloth(String cat, String fav, String file, ClothesModel item){
-        if(fav.isEmpty()){
-            fav = "null";
+        if(selected != null){
+            repositoryInteractor.removeCloth(selected);
         }
-        Log.e(TAG, "-------------------------------------------------------------update item  starts now ");
-        // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
-        CategoryModel category = null;
-        if(cat != null){
-            category = repositoryInteractor.getCategoryByName(cat);
-            Log.e(TAG, "-------------------------------------------------------------saved category ");
-        }
-
-        FavouritesModel favourite = null;
-        if(fav != null){
-            favourite = repositoryInteractor.getFavouriteByName(fav);
-            Log.e(TAG, "-------------------------------------------------------------saved favourite ");
-        }
-        repositoryInteractor.removeCloth(item);
-        item.setName("name");
-        item.setCategory(category);
-        item.setLabel(favourite);
-        item.setUri(file);
-        repositoryInteractor.saveCloth(item);
-        Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
-
 
     }
+//    public void updateCloth(String cat, String fav, String file, ClothesModel item){
+//        if(fav.isEmpty()){
+//            fav = "null";
+//        }
+//        Log.e(TAG, "-------------------------------------------------------------update item  starts now ");
+//        // this func. check if the name is in the DB, if it is, return the found category, if not create a new category and saves it
+//        CategoryModel category = null;
+//        if(cat != null){
+//            category = repositoryInteractor.getCategoryByName(cat);
+//            Log.e(TAG, "-------------------------------------------------------------saved category ");
+//        }
+//
+//        FavouritesModel favourite = null;
+//        if(fav != null){
+//            favourite = repositoryInteractor.getFavouriteByName(fav);
+//            Log.e(TAG, "-------------------------------------------------------------saved favourite ");
+//        }
+//        repositoryInteractor.removeCloth(item);
+//        item.setName("name");
+//        item.setCategory(category);
+//        item.setLabel(favourite);
+//        item.setUri(file);
+//        repositoryInteractor.saveCloth(item);
+//        Log.e(TAG, "------------------------------------------------------------- cloth is saved ");
+//
+//
+//    }
 }

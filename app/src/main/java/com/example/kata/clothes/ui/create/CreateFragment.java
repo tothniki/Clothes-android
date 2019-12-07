@@ -169,7 +169,13 @@ public class CreateFragment extends Fragment implements CreateScreen {
             this.file = Uri.parse(this.selectedCloth.getUri());
             imageView.setImageURI(this.file);
             categoryEditText.setText(this.selectedCloth.getCategory().getName());
-            favouriteEditText.setText(this.selectedCloth.getLabel().getName());
+            String label_ = this.selectedCloth.getLabel().getName();
+            if(label_.contains("no_label_set")){
+                favouriteEditText.setText("");
+            }else{
+                favouriteEditText.setText(label_);
+            }
+
         }
 
         takePictureButton.setOnClickListener(new View.OnClickListener(){
@@ -195,7 +201,7 @@ public class CreateFragment extends Fragment implements CreateScreen {
                     saveNewCloth(cat, fav);
                     ShowMessageDialog("Item saved successfully!");
                     //reset the selected item
-                    ((MainActivity)getActivity()).setSelectedCloth(null);
+//                    ((MainActivity)getActivity()).setSelectedCloth(null);
                     Log.e(TAG, "-------------------------------------------------------------save new item into DB-" + cat + "-" );
                     imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
                     categoryEditText.setText(null);
@@ -224,14 +230,15 @@ public class CreateFragment extends Fragment implements CreateScreen {
     }
 
     public void saveNewCloth(String cat, String fav){
-        String uri = null;
-        uri = file.toString();
-        if(this.selectedCloth != null){
-            createPresenter.updateCloth(cat, fav, uri, this.selectedCloth);
-        }else{
-            createPresenter.saveNewCloth(cat, fav, uri);
-        }
-
+//        String uri = null;
+//        uri = file.toString();
+//        if(this.selectedCloth != null){
+//            createPresenter.updateCloth(cat, fav, uri, this.selectedCloth);
+//        }else{
+//            createPresenter.saveNewCloth(cat, fav, uri);
+//        }
+        String uri = file.toString();
+        createPresenter.saveNewCloth(cat, fav, uri, this.selectedCloth);
 
         Log.e(TAG, "-------------------------------------------------------------save new item into DB: " + cat + "--" + fav);
     }

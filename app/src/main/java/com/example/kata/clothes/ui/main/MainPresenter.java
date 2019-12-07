@@ -35,9 +35,9 @@ public class MainPresenter extends Presenter<MainScreen> {
     }
 
     public void initDataset(){
-//        repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-//        repositoryInteractor.removeAllClothes(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-//        repositoryInteractor.removeAllFavourites();
+        repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
+        repositoryInteractor.removeAllClothes(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
+        repositoryInteractor.removeAllFavourites();
 
         if(repositoryInteractor.getAllCategories().size() == 0){
             CategoryModel cat_tshirt = new CategoryModel("T-Shirt", R.drawable.ic_cat_tshirt);
@@ -60,6 +60,11 @@ public class MainPresenter extends Presenter<MainScreen> {
             cat_accessories.save();
             cat_misc.save();
         }
+        if(repositoryInteractor.getAllFavourites().size() == 0){
+            FavouritesModel fav = new FavouritesModel("no_label_set");
+            fav.save();
+        }
+
     }
 
     public CategoryModel getCategory(){

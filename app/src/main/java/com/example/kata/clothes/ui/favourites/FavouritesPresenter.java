@@ -5,9 +5,11 @@ import android.util.Log;
 import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.interactor.clothes.ClothesInteractor;
 import com.example.kata.clothes.interactor.clothes.RepositoryInteractor;
+import com.example.kata.clothes.model.ClothesModel;
 import com.example.kata.clothes.model.FavouritesModel;
 import com.example.kata.clothes.ui.Presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -38,10 +40,18 @@ public class FavouritesPresenter extends Presenter<FavouritesScreen> {
 
 
     public void loadFavouritesFromRepo(){
-        List<FavouritesModel> list = repositoryInteractor.getAllFavourites();
-        int num = list.size();
+        List<FavouritesModel> selected_list = new ArrayList<>();
+        List<FavouritesModel> all_list = repositoryInteractor.getAllFavourites();
+        for (FavouritesModel fav : all_list) {
+            List<ClothesModel> c_list = repositoryInteractor.getClothesOfFavourite(fav);
+            if(c_list.size() != 0){
+                selected_list.add(fav);
+            }
+        }
+
+        int num = selected_list.size();
         Log.e(TAG, "*****************************************************loadFavsFromRepo:" + num);
-        screen.showFavourites(list);
+        screen.showFavourites(selected_list);
     }
 
 

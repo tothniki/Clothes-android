@@ -144,9 +144,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen,
         this.selectedCloth = item;
     }
 
+//    @Override
+//    public void onListFragmentInteraction(ClothesModel item) {}
     @Override
     public void onListFragmentInteraction(ClothesModel item, String option) {
-        this.selectedCloth = null;
         this.selectedCloth = item;
         switch (option) {
             case "edit":

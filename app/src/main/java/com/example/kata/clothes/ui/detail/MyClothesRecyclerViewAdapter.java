@@ -104,26 +104,6 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
         );
     }
 
-    // method to open a popup menu(list) upon long click in the recyclerView item
-
-    private void showMenu(View view){
-
-//        PopupMenu popup = new PopupMenu(view.getContext(),view);
-//
-//        popup.getMenuInflater()
-//                .inflate(R.menu.clothes_menu, popup.getMenu());
-//
-//
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return false;
-//            }
-//        });
-//
-//        popup.show();
-
-    }
 
     @Override
     public int getItemCount() {
