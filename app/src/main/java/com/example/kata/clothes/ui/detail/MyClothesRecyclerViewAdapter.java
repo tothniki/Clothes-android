@@ -93,16 +93,17 @@ public class MyClothesRecyclerViewAdapter extends RecyclerView.Adapter<MyClothes
                                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                                     builder.setMessage("Do you want to delete this item?");
                                     builder.setCancelable(true);
-                                    builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            mListener.onListFragmentInteraction(holder.mItem, "delete");
-                                            dialog.dismiss();
-                                        }
-                                    });
+
                                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    builder.setNeutralButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            mListener.onListFragmentInteraction(holder.mItem, "delete");
                                             dialog.dismiss();
                                         }
                                     });
