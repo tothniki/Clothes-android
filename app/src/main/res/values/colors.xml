@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#6A6699</color>
+    <color name="colorPrimaryDark">#4E4C67</color>
     <color name="colorAccent">#F77ABC</color>
-    <color name="colorNavbar">#F8DEEC</color>
+    <color name="colorNavbar">#6A6699</color>
     <color name="button">#FFFFFF</color>
     <color name="colorNavbar_visible">#88F8DEEC</color>
-    <color name="colorAccent_visible">#99F77ABC</color>
+    <color name="colorAccent_visible">#99A6B1E1</color>
     <color name="colorPrimaryDark_visible">#88303F9F</color>
     <color name="white_visible">#9FFFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="colorPrimary_visible">#553F51B5</color>
+    <color name="colorTheme1">#985F6F</color>
+    <color name="colorTheme2">#B4869F</color>
+    <color name="colorTheme3">#A6B1E1</color>
+    <color name="nav_icon">#DCD6F7</color>
+    <color name="text">#DCD6F7</color>
+    <color name="transparent">#20000000</color>
+    <color name="category_balck">#000000</color>
 
 </resources>

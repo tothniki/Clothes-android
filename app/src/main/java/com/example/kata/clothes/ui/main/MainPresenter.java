@@ -35,28 +35,28 @@ public class MainPresenter extends Presenter<MainScreen> {
     }
 
     public void initDataset(){
-        repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-        repositoryInteractor.removeAllClothes(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
-        repositoryInteractor.removeAllFavourites();
+//        repositoryInteractor.removeAllCategories(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
+//        repositoryInteractor.removeAllClothes(); //TODO legyen csak update, hogy a sajat hozzaadottak megmaradjanak
+//        repositoryInteractor.removeAllFavourites();
 
         if(repositoryInteractor.getAllCategories().size() == 0){
-            CategoryModel cat_tshirt = new CategoryModel("T-Shirt", R.drawable.ic_cat_tshirt);
-            CategoryModel cat_shirt = new CategoryModel("Shirt", R.drawable.ic_cat_shirt);
-            CategoryModel cat_skirt = new CategoryModel("Skirt", R.drawable.ic_cat_skirt);
-            CategoryModel cat_jacket = new CategoryModel("Jacket", R.drawable.ic_cat_jacket);
-            CategoryModel cat_trousers = new CategoryModel("Trousers", R.drawable.ic_cat_trousers);
-            CategoryModel cat_heels = new CategoryModel("Heels", R.drawable.ic_cat_heels);
-            CategoryModel cat_dress = new CategoryModel("Dress", R.drawable.ic_cat_dress);
-            CategoryModel cat_accessories = new CategoryModel("Accessories", R.drawable.ic_cat_bag);
+            CategoryModel cat_tshirt = new CategoryModel("T-Shirt", R.drawable.ic_tshirt);
+            CategoryModel cat_skirt = new CategoryModel("Skirt", R.drawable.ic_mini_skirt);
+            CategoryModel cat_shirt = new CategoryModel("Shirt", R.drawable.ic_shirt_1);
+            CategoryModel cat_jacket = new CategoryModel("Coat", R.drawable.ic_blazer);
+            CategoryModel cat_trousers = new CategoryModel("Pants", R.drawable.ic_pants);
+            CategoryModel cat_heels = new CategoryModel("Shoes", R.drawable.ic_shoe);
+            CategoryModel cat_dress = new CategoryModel("Dress", R.drawable.ic_pencil_dress);
+            CategoryModel cat_accessories = new CategoryModel("Accessories", R.drawable.ic_bag);
             CategoryModel cat_misc = new CategoryModel("Others", R.drawable.ic_camera_alt_black_24dp);
 
             cat_tshirt.save();
-            cat_shirt.save();
             cat_skirt.save();
+            cat_shirt.save();
             cat_jacket.save();
             cat_trousers.save();
-            cat_heels.save();
             cat_dress.save();
+            cat_heels.save();
             cat_accessories.save();
             cat_misc.save();
         }
