@@ -40,6 +40,7 @@ public class FavouritesPresenter extends Presenter<FavouritesScreen> {
 
 
     public void loadFavouritesFromRepo(){
+        // Todo: delete the favourites which are empty
         List<FavouritesModel> selected_list = new ArrayList<>();
         List<FavouritesModel> all_list = repositoryInteractor.getAllFavourites();
         for (FavouritesModel fav : all_list) {
