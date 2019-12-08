@@ -18,5 +18,7 @@
     <color name="text">#DCD6F7</color>
     <color name="transparent">#20000000</color>
     <color name="category_balck">#000000</color>
+    <color name="color_drop">#90A6B1E1</color>
+    <color name="color_drop_popup">#A6B1E1</color>
 
 </resources>

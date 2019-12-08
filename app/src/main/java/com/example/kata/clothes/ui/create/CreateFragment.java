@@ -23,8 +23,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.kata.clothes.ClothesApplication;
 import com.example.kata.clothes.R;
@@ -58,6 +61,10 @@ public class CreateFragment extends Fragment implements CreateScreen {
     private Button createClothButton;
 
     private ClothesModel selectedCloth = null;
+
+    private Spinner spinner;
+    private static final String[] paths = {"Select..", "T-Shirt", "Skirt", "Shirt", "Coat", "Pants", "Dress", "Shoes", "Accessories", "Others"};
+    String cat;
 
     @Inject
     CreatePresenter createPresenter;
@@ -154,9 +161,28 @@ public class CreateFragment extends Fragment implements CreateScreen {
 
         takePictureButton = (Button) v.findViewById(R.id.button_image);
         imageView = (ImageView) v.findViewById(R.id.imageview);
-        categoryEditText = (TextInputEditText) v.findViewById(R.id.cat_input);
+//        categoryEditText = (TextInputEditText) v.findViewById(R.id.cat_input);
         favouriteEditText = (TextInputEditText) v.findViewById(R.id.fav_input);
         createClothButton = (Button) v.findViewById((R.id.button_create));
+
+//        Set up the drop down list
+         spinner = (Spinner) v.findViewById(R.id.cat_input);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>((MainActivity) getActivity(),
+        android.R.layout.simple_spinner_item,paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cat = paths[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                ;
+
+            }
+        });
 
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -168,7 +194,18 @@ public class CreateFragment extends Fragment implements CreateScreen {
         if(this.selectedCloth != null){
             this.file = Uri.parse(this.selectedCloth.getUri());
             imageView.setImageURI(this.file);
-            categoryEditText.setText(this.selectedCloth.getCategory().getName());
+
+            String cat = this.selectedCloth.getCategory().getName();
+            int count = 0;
+            for( String cats : paths){
+                if(cats.contains(cat)){
+                    spinner.setSelection(count);
+                    break;
+                }
+                count+=1;
+            }
+
+//            categoryEditText.setText(this.selectedCloth.getCategory().getName());
             String label_ = this.selectedCloth.getLabel().getName();
             if(label_.contains("no_label_set")){
                 favouriteEditText.setText("");
@@ -195,17 +232,18 @@ public class CreateFragment extends Fragment implements CreateScreen {
 
         createClothButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                String cat = categoryEditText.getText().toString();
+//                String cat = categoryEditText.getText().toString();
                 String fav = favouriteEditText.getText().toString();
-                if(file != null && imageView.getDrawable() != null && cat!=null && !cat.isEmpty()){
+                if(file != null && imageView.getDrawable() != null && cat!=null && !cat.isEmpty() && !cat.contains("Select")){
                     saveNewCloth(cat, fav);
                     ShowMessageDialog("Item saved successfully!");
                     //reset the selected item
 //                    ((MainActivity)getActivity()).setSelectedCloth(null);
                     Log.e(TAG, "-------------------------------------------------------------save new item into DB-" + cat + "-" );
                     imageView.setImageResource(R.drawable.ic_camera_alt_black_24dp);
-                    categoryEditText.setText(null);
+//                    categoryEditText.setText(null);
                     favouriteEditText.setText(null);
+                    spinner.setSelection(0);
                     file = null;
                 }else{
                     ShowMessageDialog("Make sure you have a picture and a category!");
